@@ -40,4 +40,3 @@ RUN chown -R www-data:www-data database storage bootstrap/cache
 EXPOSE 80
 
 CMD ["sh", "-c", "php artisan migrate --force && exec apache2-foreground"]
-
