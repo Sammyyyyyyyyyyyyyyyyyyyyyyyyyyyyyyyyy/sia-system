@@ -1,4 +1,3 @@
-
 FROM node:20 AS frontend
 WORKDIR /app
 COPY package.json ./
@@ -34,5 +33,11 @@ RUN sed -ri 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
     > /etc/apache2/conf-available/laravel.conf \
     && a2enconf laravel
 
+
+# Make the SQLite database writable by Laravel
+RUN chown -R www-data:www-data database storage bootstrap/cache
+
 EXPOSE 80
-CMD ["apache2-foreground"]
+
+CMD ["sh", "-c", "php artisan migrate --force && exec apache2-foreground"]
+
