@@ -8,8 +8,11 @@ RUN npm run build
 
 FROM php:8.3-apache
 RUN apt-get update && apt-get install -y \
-    libsqlite3-dev \
-    && docker-php-ext-install pdo_sqlite \
+    git unzip libsqlite3-dev libzip-dev zlib1g-dev \
+    && docker-php-ext-install pdo_sqlite zip \
+    && a2enmod rewrite \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
 
