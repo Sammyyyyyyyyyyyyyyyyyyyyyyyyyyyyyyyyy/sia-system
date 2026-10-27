@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - SIA</title>
+
     <style>
         * {
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
 
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+        html {
+            min-height: 100%;
         }
 
         body {
+            margin: 0;
+            padding: 28px;
+            min-height: 100vh;
             background:
                 radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.18), transparent 25%),
                 radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.18), transparent 25%),
@@ -27,8 +29,9 @@
         }
 
         .card {
-            width: 920px;
-            height: 570px;
+            width: 100%;
+            max-width: 920px;
+            min-height: 570px;
             display: flex;
             background: rgba(255, 255, 255, 0.88);
             border: 1px solid rgba(255, 255, 255, 0.8);
@@ -41,6 +44,7 @@
 
         .welcome {
             width: 46%;
+            flex-shrink: 0;
             background:
                 radial-gradient(circle at 20% 20%, rgba(96, 165, 250, 0.35), transparent 30%),
                 radial-gradient(circle at 90% 90%, rgba(56, 189, 248, 0.25), transparent 30%),
@@ -65,6 +69,7 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             top: -120px;
             left: -100px;
+            pointer-events: none;
         }
 
         .welcome::after {
@@ -76,11 +81,13 @@
             border: 1px solid rgba(255, 255, 255, 0.12);
             bottom: -180px;
             right: -130px;
+            pointer-events: none;
         }
 
         .logo {
             width: 105px;
             height: 105px;
+            flex-shrink: 0;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.95);
             border: 5px solid rgba(255, 255, 255, 0.35);
@@ -115,8 +122,9 @@
 
         .welcome h1 {
             margin: 0;
-            font-size: 34px;
+            font-size: clamp(25px, 3vw, 34px);
             letter-spacing: 3px;
+            line-height: 1.2;
             position: relative;
             z-index: 2;
         }
@@ -135,14 +143,16 @@
             font-size: 12px;
             line-height: 1.7;
             max-width: 280px;
+            margin: 0;
             opacity: 0.88;
             position: relative;
             z-index: 2;
         }
 
         .form-section {
-            width: 54%;
-            padding: 35px 55px;
+            flex: 1;
+            min-width: 0;
+            padding: 35px clamp(25px, 5vw, 55px);
             background:
                 radial-gradient(circle at 100% 0%, #dbeafe, transparent 35%),
                 linear-gradient(145deg, #ffffff, #f8fbff);
@@ -152,16 +162,25 @@
         }
 
         .form-section h2 {
+            width: 100%;
             margin: 0;
             color: #123d7a;
             font-size: 30px;
+            text-align: center;
         }
 
         .subtitle {
+            width: 100%;
             color: #64748b;
             font-size: 12px;
+            line-height: 1.6;
             margin-top: 6px;
             margin-bottom: 12px;
+            text-align: center;
+        }
+
+        form {
+            width: 100%;
         }
 
         label {
@@ -174,7 +193,9 @@
         }
 
         input {
+            display: block;
             width: 100%;
+            min-width: 0;
             height: 34px;
             padding: 8px 12px;
             border: 1px solid #dbeafe;
@@ -198,12 +219,15 @@
         .error {
             color: #dc2626;
             font-size: 10px;
+            line-height: 1.5;
             margin-top: 2px;
+            overflow-wrap: anywhere;
         }
 
         button {
             width: 100%;
-            height: 40px;
+            min-height: 40px;
+            padding: 10px 12px;
             margin-top: 15px;
             border: none;
             border-radius: 8px;
@@ -223,6 +247,7 @@
             text-align: center;
             margin-top: 10px;
             font-size: 11px;
+            line-height: 1.6;
             color: #64748b;
         }
 
@@ -231,22 +256,184 @@
             text-decoration: none;
             font-weight: bold;
         }
+
+        .bottom-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* TABLET AND MOBILE */
+        @media (max-width: 760px) {
+            body {
+                padding: 18px;
+                align-items: flex-start;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 480px;
+                height: auto;
+                min-height: 0;
+                margin: auto;
+                flex-direction: column;
+                border-radius: 20px;
+            }
+
+            .welcome {
+                width: 100%;
+                flex-shrink: 0;
+                padding: 28px 22px;
+            }
+
+            .logo {
+                width: 76px;
+                height: 76px;
+                margin-bottom: 18px;
+            }
+
+            .logo::before {
+                width: 58px;
+                height: 58px;
+            }
+
+            .logo span {
+                font-size: 22px;
+            }
+
+            .welcome h1 {
+                font-size: 26px;
+                letter-spacing: 2px;
+            }
+
+            .welcome h2 {
+                margin: 9px 0;
+                font-size: 15px;
+            }
+
+            .welcome p {
+                font-size: 12px;
+                max-width: 320px;
+            }
+
+            .form-section {
+                width: 100%;
+                flex: none;
+                padding: 30px 26px;
+            }
+
+            .form-section h2 {
+                font-size: 26px;
+                text-align: center;
+            }
+
+            .subtitle {
+                margin-bottom: 18px;
+                font-size: 13px;
+                text-align: center;
+            }
+
+            label {
+                font-size: 13px;
+                margin-top: 10px;
+            }
+
+            input {
+                height: 40px;
+                font-size: 14px;
+            }
+
+            input::placeholder {
+                font-size: 12px;
+            }
+
+            .error {
+                font-size: 11px;
+            }
+
+            button {
+                min-height: 42px;
+            }
+
+            .bottom-text {
+                font-size: 12px;
+            }
+        }
+
+        /* SMALL PHONES */
+        @media (max-width: 380px) {
+            body {
+                padding: 12px;
+            }
+
+            .card {
+                border-radius: 16px;
+            }
+
+            .welcome {
+                padding: 23px 17px;
+            }
+
+            .logo {
+                width: 66px;
+                height: 66px;
+                margin-bottom: 15px;
+            }
+
+            .logo::before {
+                width: 50px;
+                height: 50px;
+            }
+
+            .logo span {
+                font-size: 19px;
+            }
+
+            .welcome h1 {
+                font-size: 23px;
+            }
+
+            .welcome h2 {
+                font-size: 14px;
+            }
+
+            .form-section {
+                padding: 25px 19px;
+            }
+
+            .form-section h2 {
+                font-size: 24px;
+                text-align: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <div class="card">
-        <div class="welcome">
+    <main class="card">
+        <section class="welcome">
             <div class="logo">
                 <span>SIA</span>
             </div>
+
             <div>
                 <h1>WELCOME TO</h1>
                 <h2>System Integration and Architecture</h2>
             </div>
-            <p>Explore technology, integration, and architecture through innovative system solutions.</p>
-        </div>
 
-        <div class="form-section">
+            <p>
+                Explore technology, integration, and architecture
+                through innovative system solutions.
+            </p>
+        </section>
+
+        <section class="form-section">
             <h2>CREATE ACCOUNT</h2>
             <div class="subtitle">Fill in your information to get started.</div>
 
@@ -326,7 +513,7 @@
             <div class="bottom-text">
                 Already have an account? <a href="/login">Login</a>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 </body>
 </html>

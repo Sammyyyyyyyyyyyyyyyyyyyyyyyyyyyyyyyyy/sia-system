@@ -1,133 +1,115 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
 | HOME
 |--------------------------------------------------------------------------
 */
-
 Route::get('/', function () {
     return redirect('/login');
 });
-
 
 /*
 |--------------------------------------------------------------------------
 | SIGN UP
 |--------------------------------------------------------------------------
 */
-
-// Show Sign Up page
 Route::get('/signup', function () {
     return view('SIGN_UP');
-});
+})->middleware('guest');
 
-// Process Sign Up
 Route::post('/signup', function (Request $request) {
-
-    $request->validate([
+    $validated = $request->validate([
         'fullname' => 'required|string|min:2|max:100',
         'address' => 'required|string|min:5|max:255',
         'age' => 'required|integer|min:1|max:100',
-        'username' => 'required|string|min:4|max:30|alpha_dash',
+        'username' => 'required|string|min:4|max:30|alpha_dash|unique:users,username',
         'password' => 'required|string|min:8|max:255|confirmed',
+    ]);
+
+    User::create([
+        'name' => $validated['fullname'],
+        'username' => $validated['username'],
+        'address' => $validated['address'],
+        'age' => $validated['age'],
+        'password' => $validated['password'],
     ]);
 
     return redirect('/login')->with(
         'success',
-        'Sign up successful! Please login.'
+        'Account created successfully! Please login.'
     );
-});
-
+})->middleware('guest');
 
 /*
 |--------------------------------------------------------------------------
 | LOGIN
 |--------------------------------------------------------------------------
 */
-
-// Show Login page
 Route::get('/login', function () {
     return view('LOGIN');
-});
+})->middleware('guest');
 
-// Process Login
 Route::post('/login', function (Request $request) {
-
-    $request->validate([
-        'username' => 'required|string|min:4|max:30',
-        'password' => 'required|string|min:8|max:255',
+    $credentials = $request->validate([
+        'username' => 'required|string',
+        'password' => 'required|string',
     ]);
 
-    return redirect('/dashboard');
-});
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
 
+        return redirect()->intended('/dashboard');
+    }
 
-/*
-|--------------------------------------------------------------------------
-| DASHBOARD
-|--------------------------------------------------------------------------
-*/
-
-// Main Dashboard / Homepage
-Route::get('/dashboard', function () {
-    return view('dashboard_layout.homepage');
-});
-
+    return back()
+        ->withErrors([
+            'username' => 'Invalid username or password.',
+        ])
+        ->onlyInput('username');
+})->middleware('guest');
 
 /*
 |--------------------------------------------------------------------------
-| CHAT
+| PROTECTED PAGES
 |--------------------------------------------------------------------------
 */
+Route::middleware('auth')->group(function () {
 
-Route::get('/chat', function () {
-    return view('dashboard_layout.chat');
-});
+    Route::get('/dashboard', function () {
+        return view('dashboard_layout.homepage');
+    });
 
+    Route::get('/chat', function () {
+        return view('dashboard_layout.chat');
+    });
 
-/*
-|--------------------------------------------------------------------------
-| CALENDAR
-|--------------------------------------------------------------------------
-*/
+    Route::get('/calendar', function () {
+        return view('dashboard_layout.calendar');
+    });
 
-Route::get('/calendar', function () {
-    return view('dashboard_layout.calendar');
-});
+    Route::get('/online-classes', function () {
+        return view('dashboard_layout.online_classes');
+    });
 
+    Route::get('/logout', function () {
+        return view('dashboard_layout.logout');
+    });
 
-/*
-|--------------------------------------------------------------------------
-| ONLINE CLASSES
-|--------------------------------------------------------------------------
-*/
+    Route::post('/logout', function (Request $request) {
+        Auth::logout();
 
-Route::get('/online-classes', function () {
-    return view('dashboard_layout.online_classes');
-});
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-
-/*
-|--------------------------------------------------------------------------
-| LOGOUT
-|--------------------------------------------------------------------------
-*/
-
-// Show Logout Confirmation
-Route::get('/logout', function () {
-    return view('dashboard_layout.logout');
-});
-
-// Process Logout
-Route::post('/logout', function () {
-
-    return redirect('/login')->with(
-        'success',
-        'You have successfully logged out.'
-    );
+        return redirect('/login')->with(
+            'success',
+            'You have successfully logged out.'
+        );
+    });
 });

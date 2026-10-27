@@ -1,39 +1,42 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Logout - SIA</title>
 
     <style>
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
         html,
         body {
             width: 100%;
-            height: 100%;
+            min-height: 100%;
+        }
+
+        html {
+            overflow-x: hidden;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            min-height: 100dvh;
             background:
                 radial-gradient(
-                    circle at top left,
-                    rgba(22, 140, 240, 0.18),
-                    transparent 35%
+                    circle at 10% 20%,
+                    rgba(37, 99, 235, 0.18),
+                    transparent 25%
                 ),
                 radial-gradient(
-                    circle at bottom right,
-                    rgba(7, 86, 181, 0.16),
-                    transparent 35%
+                    circle at 90% 80%,
+                    rgba(14, 165, 233, 0.18),
+                    transparent 25%
                 ),
                 linear-gradient(
                     135deg,
@@ -44,34 +47,43 @@
             color: #12345b;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow-x: hidden;
         }
+
+        /* NAVBAR - MATCHES CALENDAR PAGE */
 
         .navbar {
             width: 100%;
-            height: 68px;
-            flex-shrink: 0;
-            background: rgba(255, 255, 255, 0.88);
+            min-height: 78px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 45px;
-            border-bottom: 3px solid #0756b5;
-            box-shadow:
-                0 3px 15px rgba(7, 86, 181, 0.15);
-            backdrop-filter: blur(10px);
+            gap: 18px;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.94);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.12);
+            position: relative;
+            z-index: 10;
+            flex-shrink: 0;
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 11px;
+            flex: 0 0 auto;
+            min-width: 0;
         }
 
-        .brand-logo {
-            width: 43px;
-            height: 43px;
+        .logo {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
             border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background:
                 linear-gradient(
                     135deg,
@@ -79,43 +91,60 @@
                     #0756b5,
                     #168cf0
                 );
-            display: flex;
-            align-items: center;
-            justify-content: center;
             color: white;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 900;
-            box-shadow:
-                0 5px 12px rgba(7, 86, 181, 0.28);
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(22, 140, 240, 0.25);
+            border: 3px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            min-width: 0;
         }
 
         .brand-title {
-            font-size: 15px;
-            font-weight: 800;
-            color: #0f2f68;
+            color: #123d7a;
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
         }
 
         .brand-subtitle {
-            font-size: 9px;
-            color: #55708f;
-            margin-top: 2px;
+            color: #64748b;
+            font-size: 10px;
+            line-height: 1.4;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 3px;
+            justify-content: flex-end;
+            flex: 0 1 auto;
+            min-width: 0;
+            gap: 5px;
         }
 
         .nav-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 9px 12px;
             text-decoration: none;
-            color: #12345b;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 8px 11px;
-            border-radius: 7px;
+            color: #334155;
+            font-size: 12px;
+            font-weight: 700;
             white-space: nowrap;
-            transition: 0.2s;
+            border-radius: 9px;
+            border: 1px solid transparent;
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s ease;
         }
 
         .nav-links a:hover {
@@ -123,46 +152,56 @@
             color: #0756b5;
         }
 
-        .nav-links .active {
-            background:
-                linear-gradient(
-                    135deg,
-                    #0f2f68,
-                    #0756b5,
-                    #168cf0
-                );
+        .nav-links a.active {
+            background: linear-gradient(135deg, #0756b5, #168cf0);
             color: white;
-            box-shadow:
-                0 4px 10px rgba(7, 86, 181, 0.25);
+            box-shadow: 0 5px 14px rgba(22, 140, 240, 0.22);
         }
 
-        .logout-nav {
-            border: 1px solid #0756b5;
-            color: #0756b5 !important;
+        .nav-links a.logout {
+    margin-left: 3px;
+    color: #0756b5;
+    background: white;
+    border: 1px solid #168cf0;
+}
+
+.nav-links a.logout.active {
+    background: white;
+    color: #0756b5;
+    box-shadow: none;
+}
+
+.nav-links a.logout:hover {
+    background: linear-gradient(135deg, #0756b5, #168cf0);
+    color: white;
+}
+
+        .nav-links a.logout:hover {
+            background: linear-gradient(135deg, #0756b5, #168cf0);
+            color: white;
         }
 
-        .logout-nav:hover {
-            background: #0756b5 !important;
-            color: white !important;
-        }
+        /* MAIN CONTENT */
 
         .main-content {
             flex: 1;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 30px;
+            min-height: 0;
         }
 
         .logout-card {
             width: 430px;
+            max-width: 100%;
             background: rgba(255, 255, 255, 0.92);
             border-radius: 20px;
             padding: 40px 35px;
             text-align: center;
             border: 1px solid rgba(7, 86, 181, 0.15);
-            box-shadow:
-                0 15px 35px rgba(7, 86, 181, 0.18);
+            box-shadow: 0 15px 35px rgba(7, 86, 181, 0.18);
             backdrop-filter: blur(10px);
         }
 
@@ -171,21 +210,19 @@
             height: 70px;
             margin: 0 auto 20px;
             border-radius: 50%;
-            background:
-                linear-gradient(
-                    135deg,
-                    #0f2f68,
-                    #0756b5,
-                    #168cf0
-                );
+            background: linear-gradient(
+                135deg,
+                #0f2f68,
+                #0756b5,
+                #168cf0
+            );
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 28px;
             font-weight: bold;
-            box-shadow:
-                0 8px 18px rgba(7, 86, 181, 0.25);
+            box-shadow: 0 8px 18px rgba(7, 86, 181, 0.25);
         }
 
         .logout-card h1 {
@@ -198,89 +235,211 @@
             color: #55708f;
             font-size: 13px;
             line-height: 1.6;
-            margin-bottom: 25px;
+            margin-bottom: 22px;
         }
 
-        .buttons {
+        /* CONFIRMATION BUTTONS */
+
+        .confirmation-buttons {
             display: flex;
+            align-items: center;
             justify-content: center;
             gap: 12px;
+            flex-wrap: wrap;
         }
 
-        .btn {
-            min-width: 130px;
-            padding: 11px 18px;
-            border-radius: 8px;
+        .confirmation-buttons button {
+            min-height: 42px;
+            padding: 11px 20px;
+            border-radius: 9px;
             font-size: 12px;
-            font-weight: bold;
-            text-decoration: none;
+            font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
         }
 
-        .cancel {
-            background: #dbeafe;
-            color: #0756b5;
-            border: 1px solid #b8d5f5;
-        }
-        .cancel:hover {
-            background: #c7ddf8;
+        .cancel-btn {
+            background: #e2e8f0;
+            color: #334155;
+            border: 1px solid #cbd5e1;
         }
 
-        .logout-button {
-            border: none;
-            background:
-                linear-gradient(
-                    135deg,
-                    #0f2f68,
-                    #0756b5,
-                    #168cf0
-                );
+        .cancel-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .confirm-btn {
+            background: linear-gradient(135deg, #0756b5, #168cf0);
             color: white;
-            box-shadow:
-                0 5px 12px rgba(7, 86, 181, 0.22);
+            border: 1px solid transparent;
         }
 
-        .logout-button:hover {
+        .confirm-btn:hover {
+            background: linear-gradient(135deg, #0f2f68, #0756b5);
             transform: translateY(-1px);
-            box-shadow:
-                0 8px 16px rgba(7, 86, 181, 0.30);
         }
+
+        .confirmation-buttons button:focus-visible {
+            outline: 3px solid #38bdf8;
+            outline-offset: 3px;
+        }
+
+        /* LOADING SCREEN */
+
+        #loadingScreen {
+            display: none;
+        }
+
+        .loading {
+            width: 28px;
+            height: 28px;
+            margin: 22px auto 0;
+            border: 3px solid #dbeafe;
+            border-top-color: #0756b5;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* FOOTER - MATCHES CALENDAR PAGE */
 
         footer {
+            min-height: 45px;
             width: 100%;
-            height: 52px;
             flex-shrink: 0;
-            background:
-                linear-gradient(
-                    135deg,
-                    #0f2f68,
-                    #0756b5,
-                    #168cf0
-                );
+            margin-top: auto;
+            background: linear-gradient(
+                135deg,
+                #0f2f68,
+                #0756b5,
+                #168cf0
+            );
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 10px 15px;
             text-align: center;
             font-size: 11px;
+            line-height: 1.5;
+            box-shadow: 0 -5px 18px rgba(30, 64, 175, 0.12);
         }
 
-        @media (max-width: 650px) {
-            body {
-                overflow: auto;
+        /* TABLET AND NARROW VIEWPORTS */
+
+        @media (max-width: 1100px) {
+            .navbar {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+                padding: 12px 16px;
             }
 
-            .navbar {
-                height: auto;
-                flex-direction: column;
-                gap: 9px;
-                padding: 10px 15px;
+            .brand {
+                flex: 0 1 auto;
+                gap: 8px;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .brand-title {
+                font-size: 14px;
+            }
+
+            .brand-subtitle {
+                max-width: 160px;
+                font-size: 9px;
             }
 
             .nav-links {
+                flex: 1 1 auto;
+                min-width: 0;
+                display: flex;
+                flex-direction: row;
                 flex-wrap: wrap;
-                justify-content: center;
+                justify-content: flex-end;
+                align-items: center;
+                gap: 4px;
+            }
+
+            .nav-links a {
+                min-height: 36px;
+                padding: 8px 9px;
+                font-size: 11px;
+            }
+
+            .nav-links a.logout {
+                margin-left: 0;
+            }
+        }
+
+        /* TABLET AND NARROW NAVBAR */
+
+        @media (max-width: 760px) {
+            .navbar {
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 8px;
+                padding: 12px 10px;
+            }
+
+            .brand {
+                flex: 0 0 auto;
+                width: auto;
+                justify-content: flex-start;
+                gap: 7px;
+            }
+
+            .logo {
+                width: 36px;
+                height: 36px;
+                font-size: 10px;
+            }
+
+            .brand-title {
+                font-size: 12px;
+            }
+
+            .brand-subtitle {
+                max-width: 130px;
+                font-size: 8px;
+                line-height: 1.35;
+            }
+
+            .nav-links {
+                flex: 1 1 auto;
+                min-width: 0;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                align-items: center;
+                gap: 3px;
+            }
+
+            .nav-links a {
+                width: auto;
+                min-height: 32px;
+                padding: 7px 6px;
+                font-size: 10px;
+                white-space: normal;
+                text-align: center;
+            }
+
+            .nav-links a.logout {
+                margin-left: 0;
             }
 
             .main-content {
@@ -288,36 +447,92 @@
             }
 
             .logout-card {
-                width: 100%;
-                max-width: 430px;
                 padding: 30px 20px;
             }
+        }
 
-            .buttons {
-                flex-direction: column;
+        /* VERY NARROW SCREENS */
+
+        @media (max-width: 380px) {
+            .navbar {
+                padding: 10px 7px;
+                gap: 5px;
             }
 
-            .btn {
-                width: 100%;
+            .brand {
+                gap: 5px;
+            }
+
+            .logo {
+                width: 30px;
+                height: 30px;
+                font-size: 9px;
+            }
+
+            .brand-title {
+                font-size: 11px;
+            }
+
+            .brand-subtitle {
+                max-width: 95px;
+                font-size: 7px;
+            }
+
+            .nav-links {
+                gap: 2px;
+            }
+
+            .nav-links a {
+                min-height: 29px;
+                padding: 6px 4px;
+                font-size: 9px;
+            }
+        }
+
+        /* MOBILE FOOTER AND CARD */
+
+        @media (max-width: 480px) {
+            .logout-card h1 {
+                font-size: 22px;
+            }
+
+            .logout-card p {
+                font-size: 12px;
+            }
+
+            .confirmation-buttons {
+                gap: 8px;
+            }
+
+            .confirmation-buttons button {
+                padding: 10px 14px;
             }
 
             footer {
-                height: 45px;
+                font-size: 10px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
             }
         }
     </style>
 </head>
+
 <body>
 
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="brand">
-            <div class="brand-logo">
-                SIA
-            </div>
-            <div>
-                <div class="brand-title">
-                    SIA STUDENT PORTAL
-                </div>
+            <div class="logo">SIA</div>
+
+            <div class="brand-text">
+                <div class="brand-title">SIA</div>
                 <div class="brand-subtitle">
                     System Integration and Architecture
                 </div>
@@ -325,45 +540,105 @@
         </div>
 
         <div class="nav-links">
-            <a href="/dashboard"> Home</a>
-            <a href="/chat"> Chat</a>
-            <a href="/calendar"> Calendar</a>
-            <a href="/online-classes"> Online Classes</a>
-            <a href="/logout" class="active"> Logout</a>
+            <a href="/dashboard">Home</a>
+            <a href="/chat">Chat</a>
+            <a href="/calendar">Calendar</a>
+            <a href="/online-classes">Online Classes</a>
+            <a href="/logout" class="logout active" aria-current="page">
+                Logout
+            </a>
         </div>
     </nav>
 
+    <!-- MAIN CONTENT -->
     <main class="main-content">
-        <div class="logout-card">
-            <div class="logout-icon">
-                →
-            </div>
-            <h1>
-                Logout
-            </h1>
+
+        <!-- CONFIRMATION SCREEN -->
+        <section
+            class="logout-card"
+            id="confirmationScreen"
+            aria-labelledby="confirmationTitle">
+
+            <div class="logout-icon" aria-hidden="true">?</div>
+
+            <h1 id="confirmationTitle">Confirm Logout</h1>
+
             <p>
-                Are you sure you want to logout from the
-                SIA Student Portal?
+                Are you sure you want to log out of your SIA Portal account?
             </p>
 
-            <div class="buttons">
-                <a href="/dashboard" class="btn cancel"> Cancel</a>
-                <form
-                    action="/logout" method="POST">
+            <div class="confirmation-buttons">
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="cancelLogout()">
+                    Cancel
+                </button>
 
-                    @csrf
-
-                    <button type="submit"class="btn logout-button">Yes, Logout</button>
-                </form>
+                <button
+                    type="button"
+                    class="confirm-btn"
+                    onclick="confirmLogout()">
+                    Yes, Logout
+                </button>
             </div>
-        </div>
+        </section>
+
+        <!-- LOADING SCREEN -->
+        <section
+            class="logout-card"
+            id="loadingScreen"
+            aria-live="polite"
+            aria-labelledby="loadingTitle">
+
+            <div class="logout-icon" aria-hidden="true">✓</div>
+
+            <h1 id="loadingTitle">Logging Out...</h1>
+
+            <p>You are being redirected to the login screen.</p>
+
+            <div
+                class="loading"
+                role="status"
+                aria-label="Loading">
+            </div>
+        </section>
+
     </main>
 
+    <!-- FOOTER -->
     <footer>
-        SIA
-        &nbsp; | &nbsp;
-        System Integration and Architecture
+        SIA &nbsp; | &nbsp; System Integration and Architecture
     </footer>
+
+    
+<form id="logoutForm" action="/logout" method="POST" style="display: none;">
+    @csrf
+</form>
+
+
+    
+<script>
+    function cancelLogout() {
+        window.location.href = "/dashboard";
+    }
+
+    function confirmLogout() {
+        const confirmationScreen =
+            document.getElementById("confirmationScreen");
+
+        const loadingScreen =
+            document.getElementById("loadingScreen");
+
+        confirmationScreen.style.display = "none";
+        loadingScreen.style.display = "block";
+
+        window.setTimeout(function () {
+            document.getElementById("logoutForm").submit();
+        }, 1000);
+    }
+</script>
+
 
 </body>
 </html>
