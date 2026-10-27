@@ -216,6 +216,60 @@
             color: #94a3b8;
         }
 
+        /* ADDED: PASSWORD EYE ICON */
+
+        .password-field {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-field input {
+            padding-right: 42px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            min-height: 0;
+            margin: 0;
+            padding: 4px;
+            border: none;
+            border-radius: 5px;
+            background: transparent;
+            color: #64748b;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .password-toggle:hover {
+            background: #dbeafe;
+            color: #0756b5;
+        }
+
+        .password-toggle:focus-visible {
+            outline: 2px solid #168cf0;
+            outline-offset: 1px;
+        }
+
+        .password-toggle svg {
+            display: block;
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            pointer-events: none;
+        }
+
         .error {
             color: #dc2626;
             font-size: 10px;
@@ -241,6 +295,12 @@
 
         button:hover {
             background: linear-gradient(135deg, #06428c, #0876d1);
+        }
+
+        /* Keep the eye toggle separate from the submit button style */
+        .password-toggle,
+        .password-toggle:hover {
+            box-shadow: none;
         }
 
         .bottom-text {
@@ -349,7 +409,7 @@
                 font-size: 11px;
             }
 
-            button {
+            button:not(.password-toggle) {
                 min-height: 42px;
             }
 
@@ -489,23 +549,55 @@
                 @enderror
 
                 <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Enter your password"
-                >
+                <div class="password-field">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="new-password"
+                    >
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        data-target="password"
+                        aria-label="Show password"
+                        aria-pressed="false"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </button>
+                </div>
                 @error('password')
                     <div class="error">{{ $message }}</div>
                 @enderror
 
                 <label for="password_confirmation">Confirm Password</label>
-                <input
-                    type="password"
-                    id="password_confirmation"
-                    name="password_confirmation"
-                    placeholder="Confirm your password"
-                >
+                <div class="password-field">
+                    <input
+                        type="password"
+                        id="password_confirmation"
+                        name="password_confirmation"
+                        placeholder="Confirm your password"
+                        autocomplete="new-password"
+                    >
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        data-target="password_confirmation"
+                        aria-label="Show confirm password"
+                        aria-pressed="false"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </button>
+                </div>
 
                 <button type="submit">CREATE ACCOUNT</button>
             </form>
@@ -515,5 +607,35 @@
             </div>
         </section>
     </main>
+
+    <!-- ADDED: INDEPENDENT SHOW / HIDE FOR BOTH PASSWORD FIELDS -->
+    <script>
+        document.querySelectorAll('.password-toggle').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const input = document.getElementById(button.dataset.target);
+                const showing = input.type === 'password';
+
+                input.type = showing ? 'text' : 'password';
+
+                button.setAttribute('aria-pressed', String(showing));
+                button.setAttribute(
+                    'aria-label',
+                    showing ? 'Hide password' : 'Show password'
+                );
+
+                button.innerHTML = showing
+                    ? `<svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M3 3l18 18"/>
+                        <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/>
+                        <path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c6.5 0 10 7 10 7a14 14 0 0 1-3.1 3.8"/>
+                        <path d="M6.2 6.2C3.5 8 2 12 2 12s3.5 7 10 7a10.5 10.5 0 0 0 4-.8"/>
+                       </svg>`
+                    : `<svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                       </svg>`;
+            });
+        });
+    </script>
 </body>
 </html>

@@ -165,7 +165,6 @@
             justify-content: center;
         }
 
-        /* Center heading on desktop and mobile */
         .form-section h2 {
             width: 100%;
             margin: 0;
@@ -232,6 +231,59 @@
         input::placeholder {
             color: #94a3b8;
             font-size: 13px;
+        }
+
+        /* ADDED: PASSWORD EYE ICON */
+
+        .password-field {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-field input {
+            padding-right: 44px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            margin: 0;
+            padding: 4px;
+            border: none;
+            border-radius: 5px;
+            background: transparent;
+            color: #64748b;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .password-toggle:hover {
+            background: #dbeafe;
+            color: #0756b5;
+        }
+
+        .password-toggle:focus-visible {
+            outline: 2px solid #168cf0;
+            outline-offset: 2px;
+        }
+
+        .password-toggle svg {
+            display: block;
+            width: 19px;
+            height: 19px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            pointer-events: none;
         }
 
         .error {
@@ -484,14 +536,29 @@
                 <div class="field">
                     <label for="password">Password</label>
 
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        autocomplete="current-password"
-                        required
-                    >
+                    <div class="password-field">
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="togglePassword"
+                            aria-label="Show password"
+                            aria-pressed="false"
+                        >
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
 
                     @error('password')
                         <div class="error">{{ $message }}</div>
@@ -510,5 +577,35 @@
         </section>
 
     </main>
+
+    <!-- ADDED: SHOW / HIDE PASSWORD FUNCTION -->
+    <script>
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+
+        togglePassword.addEventListener('click', function () {
+            const showing = passwordInput.type === 'password';
+
+            passwordInput.type = showing ? 'text' : 'password';
+
+            togglePassword.setAttribute('aria-pressed', String(showing));
+            togglePassword.setAttribute(
+                'aria-label',
+                showing ? 'Hide password' : 'Show password'
+            );
+
+            togglePassword.innerHTML = showing
+                ? `<svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 3l18 18"/>
+                    <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/>
+                    <path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c6.5 0 10 7 10 7a14 14 0 0 1-3.1 3.8"/>
+                    <path d="M6.2 6.2C3.5 8 2 12 2 12s3.5 7 10 7a10.5 10.5 0 0 0 4-.8"/>
+                   </svg>`
+                : `<svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                   </svg>`;
+        });
+    </script>
 </body>
 </html>
