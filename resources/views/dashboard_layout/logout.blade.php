@@ -14,8 +14,7 @@
             font-family: Arial, sans-serif;
         }
 
-        html,
-        body {
+        html, body {
             width: 100%;
             min-height: 100%;
         }
@@ -27,31 +26,17 @@
         body {
             min-height: 100vh;
             min-height: 100dvh;
-            background:
-                radial-gradient(
-                    circle at 10% 20%,
-                    rgba(37, 99, 235, 0.18),
-                    transparent 25%
-                ),
-                radial-gradient(
-                    circle at 90% 80%,
-                    rgba(14, 165, 233, 0.18),
-                    transparent 25%
-                ),
-                linear-gradient(
-                    135deg,
-                    #dbeafe,
-                    #eff6ff,
-                    #bfdbfe
-                );
-            color: #12345b;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            color: #12345b;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.18), transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.18), transparent 25%),
+                linear-gradient(135deg, #dbeafe, #eff6ff, #bfdbfe);
         }
 
-        /* NAVBAR - MATCHES CALENDAR PAGE */
-
+        /* NAVBAR */
         .navbar {
             width: 100%;
             min-height: 78px;
@@ -64,7 +49,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 8px 25px rgba(30, 64, 175, 0.12);
             position: relative;
-            z-index: 10;
+            z-index: 1000;
             flex-shrink: 0;
         }
 
@@ -84,13 +69,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background:
-                linear-gradient(
-                    135deg,
-                    #0f2f68,
-                    #0756b5,
-                    #168cf0
-                );
+            background: linear-gradient(135deg, #0f2f68, #0756b5, #168cf0);
             color: white;
             font-size: 13px;
             font-weight: 900;
@@ -141,10 +120,8 @@
             white-space: nowrap;
             border-radius: 9px;
             border: 1px solid transparent;
-            transition:
-                background 0.2s ease,
-                color 0.2s ease,
-                box-shadow 0.2s ease;
+            transition: background 0.2s ease, color 0.2s ease,
+                        box-shadow 0.2s ease;
         }
 
         .nav-links a:hover {
@@ -159,30 +136,53 @@
         }
 
         .nav-links a.logout {
-    margin-left: 3px;
-    color: #0756b5;
-    background: white;
-    border: 1px solid #168cf0;
-}
+            margin-left: 3px;
+            color: #0756b5;
+            background: white;
+            border: 1px solid #168cf0;
+            box-shadow: none;
+        }
 
-.nav-links a.logout.active {
-    background: white;
-    color: #0756b5;
-    box-shadow: none;
-}
-
-.nav-links a.logout:hover {
-    background: linear-gradient(135deg, #0756b5, #168cf0);
-    color: white;
-}
+        .nav-links a.logout.active {
+            background: white;
+            color: #0756b5;
+            box-shadow: none;
+        }
 
         .nav-links a.logout:hover {
             background: linear-gradient(135deg, #0756b5, #168cf0);
             color: white;
         }
 
-        /* MAIN CONTENT */
+        /* HAMBURGER BUTTON */
+        .menu-toggle {
+            display: none;
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            border: 1px solid #dbeafe;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+        }
 
+        .menu-toggle span {
+            display: block;
+            width: 21px;
+            height: 2.5px;
+            border-radius: 5px;
+            background: #0756b5;
+        }
+
+        .nav-close {
+            display: none;
+        }
+
+        /* MAIN CONTENT */
         .main-content {
             flex: 1;
             width: 100%;
@@ -210,12 +210,7 @@
             height: 70px;
             margin: 0 auto 20px;
             border-radius: 50%;
-            background: linear-gradient(
-                135deg,
-                #0f2f68,
-                #0756b5,
-                #168cf0
-            );
+            background: linear-gradient(135deg, #0f2f68, #0756b5, #168cf0);
             color: white;
             display: flex;
             align-items: center;
@@ -239,7 +234,6 @@
         }
 
         /* CONFIRMATION BUTTONS */
-
         .confirmation-buttons {
             display: flex;
             align-items: center;
@@ -255,9 +249,7 @@
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            transition:
-                background 0.2s ease,
-                transform 0.2s ease;
+            transition: background 0.2s ease, transform 0.2s ease;
         }
 
         .cancel-btn {
@@ -281,13 +273,14 @@
             transform: translateY(-1px);
         }
 
-        .confirmation-buttons button:focus-visible {
+        .confirmation-buttons button:focus-visible,
+        .menu-toggle:focus-visible,
+        .nav-close:focus-visible {
             outline: 3px solid #38bdf8;
             outline-offset: 3px;
         }
 
         /* LOADING SCREEN */
-
         #loadingScreen {
             display: none;
         }
@@ -308,19 +301,13 @@
             }
         }
 
-        /* FOOTER - MATCHES CALENDAR PAGE */
-
+        /* FOOTER */
         footer {
             min-height: 45px;
             width: 100%;
             flex-shrink: 0;
             margin-top: auto;
-            background: linear-gradient(
-                135deg,
-                #0f2f68,
-                #0756b5,
-                #168cf0
-            );
+            background: linear-gradient(135deg, #0f2f68, #0756b5, #168cf0);
             color: white;
             display: flex;
             align-items: center;
@@ -332,19 +319,14 @@
             box-shadow: 0 -5px 18px rgba(30, 64, 175, 0.12);
         }
 
-        /* TABLET AND NARROW VIEWPORTS */
-
-        @media (max-width: 1100px) {
+        /* TABLET */
+        @media (max-width: 1100px) and (min-width: 761px) {
             .navbar {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                gap: 10px;
                 padding: 12px 16px;
+                gap: 10px;
             }
 
             .brand {
-                flex: 0 1 auto;
                 gap: 8px;
             }
 
@@ -363,13 +345,6 @@
             }
 
             .nav-links {
-                flex: 1 1 auto;
-                min-width: 0;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: flex-end;
-                align-items: center;
                 gap: 4px;
             }
 
@@ -378,28 +353,21 @@
                 padding: 8px 9px;
                 font-size: 11px;
             }
-
-            .nav-links a.logout {
-                margin-left: 0;
-            }
         }
 
-        /* TABLET AND NARROW NAVBAR */
-
+        /* MOBILE NAVBAR AND DRAWER */
         @media (max-width: 760px) {
             .navbar {
+                min-height: 66px;
+                padding: 10px 14px;
                 flex-direction: row;
-                align-items: flex-start;
+                align-items: center;
                 justify-content: space-between;
-                gap: 8px;
-                padding: 12px 10px;
+                gap: 10px;
             }
 
             .brand {
-                flex: 0 0 auto;
-                width: auto;
-                justify-content: flex-start;
-                gap: 7px;
+                gap: 8px;
             }
 
             .logo {
@@ -413,37 +381,125 @@
             }
 
             .brand-subtitle {
-                max-width: 130px;
+                max-width: 145px;
                 font-size: 8px;
                 line-height: 1.35;
             }
 
-            .nav-links {
-                flex: 1 1 auto;
-                min-width: 0;
+            .menu-toggle {
                 display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: flex-end;
+                border: none;
+                border-radius: 11px;
+                background: linear-gradient(135deg, #0756b5, #168cf0);
+                box-shadow: 0 5px 14px rgba(7, 86, 181, 0.28);
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .menu-toggle:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 7px 17px rgba(7, 86, 181, 0.32);
+            }
+
+            .menu-toggle span {
+                width: 19px;
+                height: 2px;
+                background: #ffffff;
+                transition: transform 0.25s ease, opacity 0.2s ease;
+            }
+
+            .menu-toggle.open span:nth-child(1) {
+                transform: translateY(7px) rotate(45deg);
+            }
+
+            .menu-toggle.open span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.open span:nth-child(3) {
+                transform: translateY(-7px) rotate(-45deg);
+            }
+
+            /* UPDATED DRAWER COLORS TO MATCH HOME */
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: min(260px, 78vw);
+                height: 100vh;
+                height: 100dvh;
+                padding: 22px 16px;
+                padding-top: max(22px, env(safe-area-inset-top));
+                background: rgba(255, 255, 255, 0.98);
+                border-left: 1px solid rgba(22, 140, 240, 0.22);
+                box-shadow: -12px 0 32px rgba(15, 47, 104, 0.20);
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-start;
+                gap: 7px;
+                overflow-y: auto;
+                z-index: 1100;
+                transform: translateX(105%);
+                visibility: hidden;
+                pointer-events: none;
+                transition: transform 0.25s ease, visibility 0.25s ease;
+            }
+
+            .nav-links.open {
+                transform: translateX(0);
+                visibility: visible;
+                pointer-events: auto;
+            }
+
+            .nav-close {
+                position: static;
+                display: flex;
+                align-self: flex-end;
                 align-items: center;
-                gap: 3px;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
+                flex-shrink: 0;
+                margin-bottom: 12px;
+                border: 0;
+                border-radius: 9px;
+                background: #eaf3ff;
+                color: #0756b5;
+                font-size: 25px;
+                line-height: 1;
+                cursor: pointer;
             }
 
-            .nav-links a {
-                width: auto;
-                min-height: 32px;
-                padding: 7px 6px;
-                font-size: 10px;
-                white-space: normal;
-                text-align: center;
-            }
-
-            .nav-links a.logout {
+            .nav-links a,
+            .nav-links a.logout,
+            .nav-links a.logout.active {
+                width: 100%;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 12px 14px;
                 margin-left: 0;
+                border-radius: 9px;
+                font-size: 13px;
+                white-space: normal;
+                text-align: left;
+            }
+
+            .nav-links a.active {
+                background: linear-gradient(135deg, #0756b5, #168cf0);
+                color: white;
+            }
+
+            .nav-links a.logout.active {
+                background: white;
+                color: #0756b5;
+                border: 1px solid #168cf0;
+                box-shadow: none;
             }
 
             .main-content {
-                padding: 20px 15px;
+                padding: 24px 15px;
             }
 
             .logout-card {
@@ -452,15 +508,14 @@
         }
 
         /* VERY NARROW SCREENS */
-
         @media (max-width: 380px) {
             .navbar {
-                padding: 10px 7px;
+                padding: 10px 9px;
                 gap: 5px;
             }
 
             .brand {
-                gap: 5px;
+                gap: 6px;
             }
 
             .logo {
@@ -474,22 +529,19 @@
             }
 
             .brand-subtitle {
-                max-width: 95px;
+                max-width: 115px;
                 font-size: 7px;
             }
 
-            .nav-links {
-                gap: 2px;
+            .menu-toggle {
+                width: 38px;
+                height: 38px;
             }
 
-            .nav-links a {
-                min-height: 29px;
-                padding: 6px 4px;
-                font-size: 9px;
+            .logout-card {
+                padding: 26px 16px;
             }
         }
-
-        /* MOBILE FOOTER AND CARD */
 
         @media (max-width: 480px) {
             .logout-card h1 {
@@ -527,9 +579,9 @@
 <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Main navigation">
         <div class="brand">
-            <div class="logo">SIA</div>
+            <div class="logo" aria-label="SIA logo">SIA</div>
 
             <div class="brand-text">
                 <div class="brand-title">SIA</div>
@@ -539,7 +591,27 @@
             </div>
         </div>
 
-        <div class="nav-links">
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-controls="navLinks"
+            aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-links" id="navLinks">
+            <button
+                class="nav-close"
+                id="navClose"
+                type="button"
+                aria-label="Close navigation menu">
+                &times;
+            </button>
+
             <a href="/dashboard">Home</a>
             <a href="/chat">Chat</a>
             <a href="/calendar">Calendar</a>
@@ -553,7 +625,6 @@
     <!-- MAIN CONTENT -->
     <main class="main-content">
 
-        <!-- CONFIRMATION SCREEN -->
         <section
             class="logout-card"
             id="confirmationScreen"
@@ -584,7 +655,6 @@
             </div>
         </section>
 
-        <!-- LOADING SCREEN -->
         <section
             class="logout-card"
             id="loadingScreen"
@@ -597,11 +667,7 @@
 
             <p>You are being redirected to the login screen.</p>
 
-            <div
-                class="loading"
-                role="status"
-                aria-label="Loading">
-            </div>
+            <div class="loading" role="status" aria-label="Loading"></div>
         </section>
 
     </main>
@@ -611,34 +677,81 @@
         SIA &nbsp; | &nbsp; System Integration and Architecture
     </footer>
 
-    
-<form id="logoutForm" action="/logout" method="POST" style="display: none;">
-    @csrf
-</form>
+    <!-- EXISTING LARAVEL LOGOUT FORM -->
+    <form id="logoutForm" action="/logout" method="POST" style="display: none;">
+        @csrf
+    </form>
 
+    <script>
+        // MOBILE NAVIGATION
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinks = document.getElementById("navLinks");
+        const navClose = document.getElementById("navClose");
 
-    
-<script>
-    function cancelLogout() {
-        window.location.href = "/dashboard";
-    }
+        function setMenuOpen(isOpen) {
+            navLinks.classList.toggle("open", isOpen);
+            menuToggle.classList.toggle("open", isOpen);
 
-    function confirmLogout() {
-        const confirmationScreen =
-            document.getElementById("confirmationScreen");
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen ? "Close navigation menu" : "Open navigation menu"
+            );
+        }
 
-        const loadingScreen =
-            document.getElementById("loadingScreen");
+        menuToggle.addEventListener("click", function () {
+            setMenuOpen(!navLinks.classList.contains("open"));
+        });
 
-        confirmationScreen.style.display = "none";
-        loadingScreen.style.display = "block";
+        navClose.addEventListener("click", function () {
+            setMenuOpen(false);
+            menuToggle.focus();
+        });
 
-        window.setTimeout(function () {
-            document.getElementById("logoutForm").submit();
-        }, 1000);
-    }
-</script>
+        navLinks.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                setMenuOpen(false);
+            });
+        });
 
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                setMenuOpen(false);
+            }
+        });
+
+        window.addEventListener("resize", function () {
+            if (window.innerWidth > 760) {
+                setMenuOpen(false);
+            }
+        });
+
+        // LOGOUT ACTIONS
+        function cancelLogout() {
+            window.location.href = "/dashboard";
+        }
+
+        function confirmLogout() {
+            const confirmationScreen =
+                document.getElementById("confirmationScreen");
+
+            const loadingScreen =
+                document.getElementById("loadingScreen");
+
+            const logoutForm = document.getElementById("logoutForm");
+            const confirmButton = document.querySelector(".confirm-btn");
+
+            if (confirmButton.disabled) return;
+
+            confirmButton.disabled = true;
+            confirmationScreen.style.display = "none";
+            loadingScreen.style.display = "block";
+
+            window.setTimeout(function () {
+                logoutForm.submit();
+            }, 1000);
+        }
+    </script>
 
 </body>
 </html>

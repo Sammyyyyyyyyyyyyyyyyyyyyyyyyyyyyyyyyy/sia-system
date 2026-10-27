@@ -1,9 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Calendar - SIA</title>
 
     <style>
@@ -14,8 +14,7 @@
             font-family: Arial, sans-serif;
         }
 
-        html,
-        body {
+        html, body {
             width: 100%;
             min-height: 100%;
         }
@@ -28,22 +27,9 @@
             min-height: 100vh;
             min-height: 100dvh;
             background:
-                radial-gradient(
-                    circle at 10% 20%,
-                    rgba(37, 99, 235, 0.18),
-                    transparent 25%
-                ),
-                radial-gradient(
-                    circle at 90% 80%,
-                    rgba(14, 165, 233, 0.18),
-                    transparent 25%
-                ),
-                linear-gradient(
-                    135deg,
-                    #dbeafe,
-                    #eff6ff,
-                    #bfdbfe
-                );
+                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.18), transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.18), transparent 25%),
+                linear-gradient(135deg, #dbeafe, #eff6ff, #bfdbfe);
             color: #12345b;
             display: flex;
             flex-direction: column;
@@ -64,7 +50,8 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 8px 25px rgba(30, 64, 175, 0.12);
             position: relative;
-            z-index: 10;
+            z-index: 20;
+            flex-shrink: 0;
         }
 
         .brand {
@@ -83,13 +70,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background:
-                linear-gradient(
-                    135deg,
-                    #0f2f68,
-                    #0756b5,
-                    #168cf0
-                );
+            background: linear-gradient(135deg, #0f2f68, #0756b5, #168cf0);
             color: white;
             font-size: 13px;
             font-weight: 900;
@@ -140,10 +121,7 @@
             white-space: nowrap;
             border-radius: 9px;
             border: 1px solid transparent;
-            transition:
-                background 0.2s ease,
-                color 0.2s ease,
-                box-shadow 0.2s ease;
+            transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .nav-links a:hover {
@@ -168,16 +146,65 @@
             color: white;
         }
 
+        /* HAMBURGER BUTTON */
+
+        .menu-toggle {
+            display: none;
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 8px;
+            background: linear-gradient(135deg, #0756b5, #168cf0);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 5px 14px rgba(22, 140, 240, 0.22);
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 21px;
+            height: 2px;
+            border-radius: 2px;
+            background: #ffffff;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .menu-toggle.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .menu-toggle:focus-visible {
+            outline: 3px solid #123d7a;
+            outline-offset: 3px;
+        }
+
+        .nav-close {
+            display: none;
+        }
+
         /* MAIN CONTENT */
 
         .main-content {
-            flex: 1;
+            flex: 1 1 auto;
             width: 100%;
+            min-height: 0;
             display: flex;
             justify-content: center;
             padding: 15px 30px;
             overflow: hidden;
-            min-height: 0;
         }
 
         .content-wrapper {
@@ -214,11 +241,12 @@
             margin: 6px auto 0;
         }
 
-        /* CALENDAR */
+        /* CALENDAR CARD */
 
         .calendar-card {
-            flex: 1;
+            flex: 1 1 auto;
             min-height: 0;
+            min-width: 0;
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(12px);
             border-radius: 16px;
@@ -233,6 +261,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 10px;
             margin-bottom: 10px;
             flex-shrink: 0;
         }
@@ -251,12 +280,26 @@
             font-weight: bold;
         }
 
-        .calendar-grid {
-            flex: 1;
+        /* ONLY THE CALENDAR TABLE SCROLLS */
+
+        .calendar-scroll {
+            flex: 1 1 auto;
             min-height: 0;
+            min-width: 0;
+            overflow: auto;
+            border-radius: 8px;
+            scrollbar-width: thin;
+            scrollbar-color: #9bbde8 #eaf3ff;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .calendar-grid {
+            width: 100%;
+            height: 100%;
+            min-height: 350px;
             display: grid;
             grid-template-columns: 75px repeat(6, minmax(0, 1fr));
-            grid-template-rows: 38px repeat(4, minmax(0, 1fr));
+            grid-template-rows: 38px repeat(5, minmax(0, 1fr));
             border-top: 1px solid #d6e4f5;
             border-left: 1px solid #d6e4f5;
             overflow: hidden;
@@ -365,6 +408,7 @@
             min-height: 45px;
             width: 100%;
             flex-shrink: 0;
+            margin-top: auto;
             background: linear-gradient(135deg, #0f2f68, #0756b5, #168cf0);
             color: white;
             display: flex;
@@ -377,7 +421,7 @@
             box-shadow: 0 -5px 18px rgba(30, 64, 175, 0.12);
         }
 
-        /* SHORT VIEWPORTS: ADJUST CALENDAR CONTENT ONLY */
+        /* SHORT VIEWPORTS */
 
         @media (max-height: 750px) {
             .main-content {
@@ -406,7 +450,7 @@
             }
 
             .calendar-grid {
-                grid-template-rows: 32px repeat(4, minmax(0, 1fr));
+                grid-template-rows: 32px repeat(5, minmax(0, 1fr));
             }
 
             .class-event {
@@ -426,19 +470,15 @@
             }
         }
 
-        /* TABLET AND NARROW VIEWPORTS */
+        /* TABLET */
 
         @media (max-width: 1100px) {
             .navbar {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
                 gap: 10px;
                 padding: 12px 16px;
             }
 
             .brand {
-                flex: 0 1 auto;
                 gap: 8px;
             }
 
@@ -457,13 +497,6 @@
             }
 
             .nav-links {
-                flex: 1 1 auto;
-                min-width: 0;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: flex-end;
-                align-items: center;
                 gap: 4px;
             }
 
@@ -478,45 +511,31 @@
             }
         }
 
-        @media (max-width: 900px) {
-            body {
-                overflow: auto;
-            }
-
-            .main-content {
-                overflow: visible;
-            }
-
-            .content-wrapper {
-                height: auto;
-            }
-
-            .calendar-card {
-                overflow-x: auto;
-            }
-
-            .calendar-grid {
-                min-width: 850px;
-                height: 500px;
-                flex: none;
-            }
-        }
-
-        /* TABLET AND NARROW NAVBAR - SAME AS HOME */
+        /* MOBILE NAVBAR - SAME RIGHT-SIDE DRAWER AS HOME */
 
         @media (max-width: 760px) {
+            html,
+            body {
+                height: 100%;
+            }
+
+            body {
+                height: 100vh;
+                height: 100dvh;
+                min-height: 0;
+            }
+
             .navbar {
-                flex-direction: row;
-                align-items: flex-start;
+                flex-wrap: nowrap;
+                align-items: center;
                 justify-content: space-between;
-                gap: 8px;
+                gap: 10px;
                 padding: 12px 10px;
             }
 
             .brand {
-                flex: 0 0 auto;
-                width: auto;
-                justify-content: flex-start;
+                flex: 1 1 auto;
+                min-width: 0;
                 gap: 7px;
             }
 
@@ -536,32 +555,132 @@
                 line-height: 1.35;
             }
 
-            .nav-links {
-                flex: 1 1 auto;
-                min-width: 0;
+            .menu-toggle {
                 display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: flex-end;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: min(260px, 78vw);
+                height: 100vh;
+                height: 100dvh;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-start;
+                gap: 7px;
+                padding: 22px 16px;
+                padding-top: max(22px, env(safe-area-inset-top));
+                background: rgba(255, 255, 255, 0.98);
+                box-shadow: -12px 0 32px rgba(15, 47, 104, 0.20);
+                border-left: 1px solid rgba(22, 140, 240, 0.22);
+                z-index: 100;
+                overflow-y: auto;
+                transform: translateX(105%);
+                visibility: hidden;
+                pointer-events: none;
+                transition: transform 0.25s ease, visibility 0.25s ease;
+            }
+
+            .nav-links.open {
+                transform: translateX(0);
+                visibility: visible;
+                pointer-events: auto;
+            }
+
+            .nav-close {
+                display: flex;
+                align-self: flex-end;
                 align-items: center;
-                gap: 3px;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
+                margin-bottom: 12px;
+                border: 0;
+                border-radius: 9px;
+                background: #eaf3ff;
+                color: #0756b5;
+                font-size: 25px;
+                line-height: 1;
+                cursor: pointer;
             }
 
             .nav-links a {
-                width: auto;
-                min-height: 32px;
-                padding: 7px 6px;
-                font-size: 10px;
+                width: 100%;
+                min-height: 44px;
+                justify-content: flex-start;
+                padding: 12px 14px;
+                font-size: 13px;
                 white-space: normal;
-                text-align: center;
+                text-align: left;
             }
 
             .nav-links a.logout {
                 margin-left: 0;
             }
+
+            .main-content {
+                padding: 10px;
+                overflow: hidden;
+            }
+
+            .content-wrapper {
+                width: 100%;
+                height: 100%;
+                min-height: 0;
+            }
+
+            .page-header {
+                margin-bottom: 8px;
+            }
+
+            .page-header h1 {
+                font-size: 21px;
+            }
+
+            .page-header p {
+                font-size: 10px;
+                line-height: 1.4;
+            }
+
+            .calendar-card {
+                padding: 10px;
+                overflow: hidden;
+            }
+
+            .calendar-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .calendar-header h2 {
+                font-size: 15px;
+            }
+
+            .calendar-label {
+                font-size: 9px;
+            }
+
+            .calendar-grid {
+                width: 850px;
+                min-width: 850px;
+                height: 100%;
+                min-height: 350px;
+                grid-template-columns: 75px repeat(6, minmax(0, 1fr));
+                grid-template-rows: 35px repeat(5, minmax(0, 1fr));
+            }
+
+            footer {
+                min-height: 42px;
+                padding: 8px 10px;
+                font-size: 10px;
+            }
         }
 
-        /* VERY NARROW SCREENS - SAME AS HOME */
+        /* VERY NARROW SCREENS */
 
         @media (max-width: 380px) {
             .navbar {
@@ -588,40 +707,25 @@
                 font-size: 7px;
             }
 
-            .nav-links {
-                gap: 2px;
+            .menu-toggle {
+                width: 38px;
+                height: 38px;
             }
 
-            .nav-links a {
-                min-height: 29px;
-                padding: 6px 4px;
-                font-size: 9px;
-            }
-        }
-
-        /* MOBILE CALENDAR CONTENT */
-
-        @media (max-width: 600px) {
             .main-content {
-                padding: 15px;
+                padding: 8px;
             }
 
-            .calendar-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 6px;
+            .page-header h1 {
+                font-size: 19px;
             }
 
-            .calendar-grid {
-                min-width: 800px;
+            .calendar-card {
+                padding: 8px;
             }
-        }
 
-        /* MOBILE FOOTER FONT - SAME AS HOME */
-
-        @media (max-width: 480px) {
             footer {
-                font-size: 10px;
+                font-size: 9px;
             }
         }
 
@@ -630,6 +734,7 @@
             *::before,
             *::after {
                 transition: none !important;
+                animation: none !important;
             }
         }
     </style>
@@ -650,10 +755,30 @@
             </div>
         </div>
 
-        <div class="nav-links">
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="navLinks"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-links" id="navLinks">
+            <button
+                class="nav-close"
+                id="navClose"
+                type="button"
+                aria-label="Close navigation menu"
+            >&times;</button>
+
             <a href="/dashboard">Home</a>
             <a href="/chat">Chat</a>
-            <a href="/calendar" class="active">Calendar</a>
+            <a href="/calendar" class="active" aria-current="page">Calendar</a>
             <a href="/online-classes">Online Classes</a>
             <a href="/logout" class="logout">Logout</a>
         </div>
@@ -680,152 +805,154 @@
                     </span>
                 </div>
 
-                <div class="calendar-grid">
+                <div class="calendar-scroll">
+                    <div class="calendar-grid">
 
-                    <!-- DAY HEADERS -->
-                    <div class="calendar-cell time-header">TIME</div>
-                    <div class="calendar-cell day-header">MONDAY</div>
-                    <div class="calendar-cell day-header">TUESDAY</div>
-                    <div class="calendar-cell day-header">WEDNESDAY</div>
-                    <div class="calendar-cell day-header">THURSDAY</div>
-                    <div class="calendar-cell day-header">FRIDAY</div>
-                    <div class="calendar-cell day-header">SATURDAY</div>
+                        <!-- DAY HEADERS -->
+                        <div class="calendar-cell time-header">TIME</div>
+                        <div class="calendar-cell day-header">MONDAY</div>
+                        <div class="calendar-cell day-header">TUESDAY</div>
+                        <div class="calendar-cell day-header">WEDNESDAY</div>
+                        <div class="calendar-cell day-header">THURSDAY</div>
+                        <div class="calendar-cell day-header">FRIDAY</div>
+                        <div class="calendar-cell day-header">SATURDAY</div>
 
-                    <!-- 8:00 AM - 10:00 AM -->
-                    <div class="calendar-cell time-cell">
-                        8:00 AM<br>10:00 AM
-                    </div>
+                        <!-- 8:00 AM - 10:00 AM -->
+                        <div class="calendar-cell time-cell">
+                            8:00 AM<br>10:00 AM
+                        </div>
 
-                    <div class="calendar-cell schedule-cell">
-                        <div class="class-event">
-                            <div class="subject-code">SIA 101</div>
-                            <div class="subject-name">System Integration</div>
-                            <div class="class-info">
-                                <strong>Instructor:</strong>
-                                Prof. Samuel Camorongan
-                                <br>
-                                <strong>Block:</strong> 3-A
+                        <div class="calendar-cell schedule-cell">
+                            <div class="class-event">
+                                <div class="subject-code">SIA 101</div>
+                                <div class="subject-name">System Integration</div>
+                                <div class="class-info">
+                                    <strong>Instructor:</strong>
+                                    Prof. Samuel Camorongan
+                                    <br>
+                                    <strong>Block:</strong> 3-A
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
 
-                    <div class="calendar-cell schedule-cell">
-                        <div class="class-event">
-                            <div class="subject-code">SIA 101</div>
-                            <div class="subject-name">System Integration</div>
-                            <div class="class-info">
-                                <strong>Instructor:</strong>
-                                Prof. Samuel Camorongan
-                                <br>
-                                <strong>Block:</strong> 3-D
+                        <div class="calendar-cell schedule-cell">
+                            <div class="class-event">
+                                <div class="subject-code">SIA 101</div>
+                                <div class="subject-name">System Integration</div>
+                                <div class="class-info">
+                                    <strong>Instructor:</strong>
+                                    Prof. Samuel Camorongan
+                                    <br>
+                                    <strong>Block:</strong> 3-D
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="calendar-cell schedule-cell">
-                        <div class="class-event">
-                            <div class="subject-code">SIA 101</div>
-                            <div class="subject-name">System Integration</div>
-                            <div class="class-info">
-                                <strong>Instructor:</strong>
-                                Prof. Samuel Camorongan
-                                <br>
-                                <strong>Block:</strong> 3-E
+                        <div class="calendar-cell schedule-cell">
+                            <div class="class-event">
+                                <div class="subject-code">SIA 101</div>
+                                <div class="subject-name">System Integration</div>
+                                <div class="class-info">
+                                    <strong>Instructor:</strong>
+                                    Prof. Samuel Camorongan
+                                    <br>
+                                    <strong>Block:</strong> 3-E
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
 
-                    <!-- 10:00 AM - 12:00 PM -->
-                    <div class="calendar-cell time-cell">
-                        10:00 AM<br>12:00 PM
-                    </div>
+                        <!-- 10:00 AM - 12:00 PM -->
+                        <div class="calendar-cell time-cell">
+                            10:00 AM<br>12:00 PM
+                        </div>
 
-                    <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
 
-                    <div class="calendar-cell schedule-cell">
-                        <div class="class-event">
-                            <div class="subject-code">SIA 101</div>
-                            <div class="subject-name">System Integration</div>
-                            <div class="class-info">
-                                <strong>Instructor:</strong>
-                                Prof. Samuel Camorongan
-                                <br>
-                                <strong>Block:</strong> 3-B
+                        <div class="calendar-cell schedule-cell">
+                            <div class="class-event">
+                                <div class="subject-code">SIA 101</div>
+                                <div class="subject-name">System Integration</div>
+                                <div class="class-info">
+                                    <strong>Instructor:</strong>
+                                    Prof. Samuel Camorongan
+                                    <br>
+                                    <strong>Block:</strong> 3-B
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
 
-                    <!-- 12:00 PM - 1:00 PM -->
-                    <div class="calendar-cell time-cell">
-                        12:00 PM<br>1:00 PM
-                    </div>
+                        <!-- 12:00 PM - 1:00 PM -->
+                        <div class="calendar-cell time-cell">
+                            12:00 PM<br>1:00 PM
+                        </div>
 
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
 
-                    <!-- 1:00 PM - 3:00 PM -->
-                    <div class="calendar-cell time-cell">
-                        1:00 PM<br>3:00 PM
-                    </div>
+                        <!-- 1:00 PM - 3:00 PM -->
+                        <div class="calendar-cell time-cell">
+                            1:00 PM<br>3:00 PM
+                        </div>
 
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
 
-                    <div class="calendar-cell schedule-cell">
-                        <div class="class-event">
-                            <div class="subject-code">SIA 101</div>
-                            <div class="subject-name">System Integration</div>
-                            <div class="class-info">
-                                <strong>Instructor:</strong>
-                                Prof. Samuel Camorongan
-                                <br>
-                                <strong>Block:</strong> 3-C
+                        <div class="calendar-cell schedule-cell">
+                            <div class="class-event">
+                                <div class="subject-code">SIA 101</div>
+                                <div class="subject-name">System Integration</div>
+                                <div class="class-info">
+                                    <strong>Instructor:</strong>
+                                    Prof. Samuel Camorongan
+                                    <br>
+                                    <strong>Block:</strong> 3-C
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
 
-                    <!-- 3:00 PM - 5:00 PM -->
-                    <div class="calendar-cell time-cell">
-                        3:00 PM<br>5:00 PM
-                    </div>
+                        <!-- 3:00 PM - 5:00 PM -->
+                        <div class="calendar-cell time-cell">
+                            3:00 PM<br>5:00 PM
+                        </div>
 
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
-                    <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
+                        <div class="calendar-cell empty-cell"></div>
 
-                    <div class="calendar-cell schedule-cell">
-                        <div class="class-event">
-                            <div class="subject-code">SIA 101</div>
-                            <div class="subject-name">System Integration</div>
-                            <div class="class-info">
-                                <strong>Instructor:</strong>
-                                Prof. Samuel Camorongan
-                                <br>
-                                <strong>Block:</strong> 3-L
+                        <div class="calendar-cell schedule-cell">
+                            <div class="class-event">
+                                <div class="subject-code">SIA 101</div>
+                                <div class="subject-name">System Integration</div>
+                                <div class="class-info">
+                                    <strong>Instructor:</strong>
+                                    Prof. Samuel Camorongan
+                                    <br>
+                                    <strong>Block:</strong> 3-L
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -835,6 +962,51 @@
     <footer>
         SIA &nbsp; | &nbsp; System Integration and Architecture
     </footer>
+
+    <!-- NAVBAR INTERACTIONS -->
+    <script>
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinks = document.getElementById("navLinks");
+        const navClose = document.getElementById("navClose");
+
+        function setMenuOpen(isOpen) {
+            navLinks.classList.toggle("open", isOpen);
+            menuToggle.classList.toggle("open", isOpen);
+
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen ? "Close navigation menu" : "Open navigation menu"
+            );
+        }
+
+        menuToggle.addEventListener("click", function () {
+            setMenuOpen(!navLinks.classList.contains("open"));
+        });
+
+        navClose.addEventListener("click", function () {
+            setMenuOpen(false);
+            menuToggle.focus();
+        });
+
+        navLinks.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                setMenuOpen(false);
+            });
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                setMenuOpen(false);
+            }
+        });
+
+        window.addEventListener("resize", function () {
+            if (window.innerWidth > 760) {
+                setMenuOpen(false);
+            }
+        });
+    </script>
 
 </body>
 </html>
