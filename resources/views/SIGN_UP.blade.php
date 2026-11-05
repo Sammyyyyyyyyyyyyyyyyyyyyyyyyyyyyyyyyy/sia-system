@@ -598,17 +598,35 @@
                         </svg>
                     </button>
                 </div>
-                <label for="invite_code">Instructor Invitation Code</label>
-                <input
-                type="password"
-                id="invite_code"
-                name="invite_code"
-                placeholder="Enter your invitation code"
-                autocomplete="off"
-            >
-                @error('invite_code')
-                    <div class="error">{{ $message }}</div>
-                @enderror
+
+<label for="invite_code">Instructor Invitation Code</label>
+
+<div class="password-wrapper">
+    <input
+        type="password"
+        id="invite_code"
+        name="invite_code"
+        placeholder="Enter your invitation code"
+        autocomplete="off"
+    >
+
+    <button
+        type="button"
+        class="password-toggle"
+        data-target="invite_code"
+        aria-label="Show invitation code"
+        aria-pressed="false"
+    >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
+            <circle cx="12" cy="12" r="3"/>
+        </svg>
+    </button>
+</div>
+
+@error('invite_code')
+    <div class="error">{{ $message }}</div>
+@enderror
 
                 <button type="submit">CREATE ACCOUNT</button>
             </form>
