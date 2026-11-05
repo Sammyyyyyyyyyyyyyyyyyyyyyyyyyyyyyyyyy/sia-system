@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CalendarEvent;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,14 +11,24 @@ class CalendarController extends Controller
 {
     // Display the instructor's own calendar events
     public function index()
-    {
-        $events = CalendarEvent::where('user_id', Auth::id())
-            ->orderBy('event_date')
-            ->orderBy('event_time')
-            ->get();
+{
+    $events = CalendarEvent::where('user_id', Auth::id())
+        ->orderBy('event_date')
+        ->orderBy('event_time')
+        ->get();
 
-        return view('dashboard_layout.calendar', compact('events'));
-    }
+    $activities = Activity::with('blocks')
+        ->where('user_id', Auth::id())
+        ->latest()
+        ->get();
+
+    $blocks = ['3-A', '3-B', '3-C', '3-D', '3-E', '3-L'];
+
+    return view(
+        'dashboard_layout.calendar',
+        compact('events', 'activities', 'blocks')
+    );
+}
 
     // Save a new calendar event
     public function store(Request $request)

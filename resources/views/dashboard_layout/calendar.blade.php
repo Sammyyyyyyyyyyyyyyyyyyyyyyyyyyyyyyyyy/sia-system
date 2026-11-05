@@ -1324,15 +1324,92 @@
                             + Add Event
                         </button>
                     </div>
+
+                </form>
+
+                <!-- POST ACTIVITY FORM -->
+                <div class="events-list-heading" style="margin-top: 30px;">
+                    <h3>Post Class Activity</h3>
+                </div>
+
+                <form
+                    action="{{ route('activities.store') }}"
+                    method="POST"
+                    class="event-form"
+                    enctype="multipart/form-data"
+                >
+                    @csrf
+
+                    <div class="form-group full-width">
+                        <label for="activity_title">Activity Title *</label>
+                        <input
+                            type="text"
+                            id="activity_title"
+                            name="title"
+                            value="{{ old('title') }}"
+                            placeholder="Example: Database Management Activity"
+                            maxlength="255"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="activity_instructions">Instructions / Description</label>
+                        <textarea
+                            id="activity_instructions"
+                            name="instructions"
+                            maxlength="10000"
+                            placeholder="Write the activity instructions here..."
+                        >{{ old('instructions') }}</textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="activity_due_at">Deadline</label>
+                        <input
+                            type="datetime-local"
+                            id="activity_due_at"
+                            name="due_at"
+                            value="{{ old('due_at') }}"
+                        >
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Assign to Block(s) *</label>
+
+                        <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 10px;">
+                            @foreach ($blocks as $block)
+                                <label style="display: flex; align-items: center; gap: 6px;">
+                                    <input
+                                        type="checkbox"
+                                        name="blocks[]"
+                                        value="{{ $block }}"
+                                        {{ in_array($block, old('blocks', [])) ? 'checked' : '' }}
+                                    >
+                                    {{ $block }}
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="activity_attachment">Attachment (Optional)</label>
+                        <input
+                            type="file"
+                            id="activity_attachment"
+                            name="attachment"
+                            accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png"
+                        >
+                        <small>Accepted: PDF, Word, PowerPoint, Excel, and images. Maximum size: 10 MB.</small>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <button type="submit" class="event-submit-button">
+                            + Post Activity
+                        </button>
+                    </div>
                 </form>
 
                 <!-- SAVED EVENTS -->
-                <div class="events-list-heading">
-                    <h3>Saved Events</h3>
-                    <span class="event-count">
-                        {{ $events->count() }} {{ $events->count() === 1 ? 'Event' : 'Events' }}
-                    </span>
-                </div>
 
                 @forelse ($events as $event)
 
@@ -1514,6 +1591,164 @@
                         Your saved events will appear here after you add one.
                     </div>
 
+
+                @endforelse
+
+                <!-- POSTED ACTIVITIES LIST -->
+                <div class="events-list-heading" style="margin-top: 30px;">
+                    <h3>Posted Class Activities</h3>
+                    <span class="event-count">
+                        {{ $activities->count() }}
+                        {{ $activities->count() === 1 ? 'Activity' : 'Activities' }}
+                    </span>
+                </div>
+
+                @forelse ($activities as $activity)
+                    <article class="event-item">
+                        <div class="event-item-top">
+                            <div>
+                                <h4>{{ $activity->title }}</h4>
+                                <span class="event-type-badge">Class Activity</span>
+                            </div>
+                        </div>
+
+                        <div class="event-details">
+                            @if ($activity->due_at)
+                                <p>
+                                    <strong>Deadline:</strong>
+                                    {{ $activity->due_at->format('M d, Y - h:i A') }}
+                                </p>
+                            @endif
+
+                            @if ($activity->instructions)
+                                <p style="white-space: pre-line;">
+                                    {{ $activity->instructions }}
+                                </p>
+                            @endif
+
+                            <p>
+                                <strong>Assigned to:</strong>
+                                {{ $activity->blocks->pluck('block')->implode(', ') }}
+                            </p>
+
+                            @if ($activity->attachment_path)
+                                <p>
+                                    <a href="{{ route('activities.download', $activity->id) }}">
+                                        Download: {{ $activity->attachment_name }}
+                                    </a>
+                                </p>
+                            @endif
+                        </div>
+
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                            <button
+                                type="button"
+                                class="event-submit-button"
+                                onclick="document.getElementById('edit-activity-{{ $activity->id }}').style.display = 'block';"
+                            >
+                                Edit Activity
+                            </button>
+
+                            <form
+                                action="{{ route('activities.destroy', $activity->id) }}"
+                                method="POST"
+                                onsubmit="return confirm('Delete this activity?');"
+                            >
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="event-submit-button">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- EDIT ACTIVITY FORM -->
+                        <div id="edit-activity-{{ $activity->id }}" style="display: none; margin-top: 20px;">
+                            <form
+                                action="{{ route('activities.update', $activity->id) }}"
+                                method="POST"
+                                class="event-form"
+                                enctype="multipart/form-data"
+                            >
+                                @csrf
+                                @method('PUT')
+
+                                <div class="form-group full-width">
+                                    <label>Activity Title *</label>
+                                    <input
+                                        type="text"
+                                        name="title"
+                                        value="{{ $activity->title }}"
+                                        maxlength="255"
+                                        required
+                                    >
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label>Instructions / Description</label>
+                                    <textarea
+                                        name="instructions"
+                                        maxlength="10000"
+                                    >{{ $activity->instructions }}</textarea>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label>Deadline</label>
+                                    <input
+                                        type="datetime-local"
+                                        name="due_at"
+                                        value="{{ $activity->due_at ? $activity->due_at->format('Y-m-d\TH:i') : '' }}"
+                                    >
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label>Assign to Block(s) *</label>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 10px;">
+                                        @foreach ($blocks as $block)
+                                            <label style="display: flex; align-items: center; gap: 6px;">
+                                                <input
+                                                    type="checkbox"
+                                                    name="blocks[]"
+                                                    value="{{ $block }}"
+                                                    {{ $activity->blocks->contains('block', $block) ? 'checked' : '' }}
+                                                >
+                                                {{ $block }}
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label>Replace Attachment (Optional)</label>
+                                    <input
+                                        type="file"
+                                        name="attachment"
+                                        accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png"
+                                    >
+                                    <small>Leave empty to keep the current attachment.</small>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <button type="submit" class="event-submit-button">
+                                        Save Activity Changes
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="event-submit-button"
+                                        onclick="document.getElementById('edit-activity-{{ $activity->id }}').style.display = 'none';"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </article>
+                @empty
+                    <div class="empty-events">
+                        <strong>No class activities posted yet.</strong>
+                        <br>
+                        Your posted activities will appear here.
+                    </div>
                 @endforelse
 
             </section>

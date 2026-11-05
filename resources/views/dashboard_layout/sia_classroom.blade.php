@@ -356,9 +356,8 @@
 
             <p>
                 Welcome to the SIA Online Classroom.
-                This page provides the class information,
-                announcements, learning materials, and activities
-                for Block {{ $block }}.
+                This page provides the class information and
+                class activities for Block {{ $block }}.
             </p>
         </section>
 
@@ -380,28 +379,44 @@
 
         <div class="section-grid">
 
+                        {{-- POSTED CLASS ACTIVITIES --}}
             <section class="section-card">
-                <h2>📢 Class Announcements</h2>
+                <h2>Class Activities</h2>
 
-                <div class="empty-message">
-                    No announcements have been posted yet.
-                </div>
-            </section>
+                @forelse($activities as $activity)
+                    <div class="notice" style="margin-bottom: 14px;">
+                        <strong>{{ $activity->title }}</strong>
 
-            <section class="section-card">
-                <h2>📚 Learning Materials</h2>
+                        @if($activity->due_at)
+                            <p>
+                                <strong>Deadline:</strong>
+                                {{ $activity->due_at->format('M d, Y - h:i A') }}
+                            </p>
+                        @endif
 
-                <div class="empty-message">
-                    No learning materials have been uploaded yet.
-                </div>
-            </section>
+                        @if($activity->instructions)
+                            <p style="white-space: pre-line;">
+                                {{ $activity->instructions }}
+                            </p>
+                        @endif
 
-            <section class="section-card">
-                <h2>📝 Class Activities</h2>
+                        <p>
+                            <strong>Assigned Blocks:</strong>
+                            {{ $activity->blocks->pluck('block')->implode(', ') }}
+                        </p>
 
-                <div class="empty-message">
-                    No activities have been posted yet.
-                </div>
+                        @if($activity->attachment_path)
+                            <a href="{{ route('activities.download', $activity->id) }}"
+                               style="color: #0756b5; font-weight: bold;">
+                                Download: {{ $activity->attachment_name }}
+                            </a>
+                        @endif
+                    </div>
+                @empty
+                    <div class="empty-message">
+                        No activities have been posted for Block {{ $block }} yet.
+                    </div>
+                @endforelse
             </section>
 
             <section class="section-card">

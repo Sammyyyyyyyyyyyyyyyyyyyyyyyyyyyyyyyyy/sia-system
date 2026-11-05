@@ -8,6 +8,8 @@ use App\Models\ClassroomLink;
 use App\Http\Controllers\ClassroomLinkController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\ActivityController;
+use App\Models\Activity;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,22 +140,28 @@ Route::delete('/calendar/{id}', [CalendarController::class, 'destroy'])
     | SIA CLASSROOM
     |--------------------------------------------------------------------------
     */
-
-    // Display classroom and saved Google Classroom link
     Route::get('/online-classes/classroom/{block}', function ($block) {
 
-        $allowedBlocks = ['3-A', '3-B', '3-C', '3-D', '3-E', '3-L'];
+    $allowedBlocks = ['3-A', '3-B', '3-C', '3-D', '3-E', '3-L'];
 
-        abort_unless(in_array($block, $allowedBlocks, true), 404);
+    abort_unless(in_array($block, $allowedBlocks, true), 404);
 
-        $classroomLink = ClassroomLink::where('block', $block)->first();
+    $classroomLink = ClassroomLink::where('block', $block)->first();
 
-        return view(
-            'dashboard_layout.sia_classroom',
-            compact('block', 'classroomLink')
-        );
+    $activities = Activity::with('blocks')
+        ->where('user_id', Auth::id())
+        ->whereHas('blocks', function ($query) use ($block) {
+            $query->where('block', $block);
+        })
+        ->latest()
+        ->get();
 
-    })->name('sia.classroom');
+    return view(
+        'dashboard_layout.sia_classroom',
+        compact('block', 'classroomLink', 'activities')
+    );
+
+})->name('sia.classroom');
 
     // Add Google Classroom link
     Route::post(
@@ -172,6 +180,24 @@ Route::delete('/calendar/{id}', [CalendarController::class, 'destroy'])
         '/online-classes/classroom/{block}/link',
         [ClassroomLinkController::class, 'destroy']
     )->name('sia.classroom.link.destroy');
+
+        /*
+    |--------------------------------------------------------------------------
+    | ACTIVITY MANAGEMENT
+    |--------------------------------------------------------------------------
+    */
+
+    Route::post('/activities', [ActivityController::class, 'store'])
+        ->name('activities.store');
+
+    Route::put('/activities/{id}', [ActivityController::class, 'update'])
+        ->name('activities.update');
+
+    Route::delete('/activities/{id}', [ActivityController::class, 'destroy'])
+        ->name('activities.destroy');
+
+    Route::get('/activities/{id}/download', [ActivityController::class, 'download'])
+        ->name('activities.download');
 
     /*
     |--------------------------------------------------------------------------
