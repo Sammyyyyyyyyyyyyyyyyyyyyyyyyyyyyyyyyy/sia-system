@@ -601,7 +601,7 @@
 
 <label for="invite_code">Instructor Invitation Code</label>
 
-<div class="password-wrapper">
+<div class="password-field">
     <input
         type="password"
         id="invite_code"
