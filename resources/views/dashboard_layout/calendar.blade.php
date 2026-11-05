@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        /* NAVBAR - SAME AS HOME */
+        /* NAVBAR */
 
         .navbar {
             width: 100%;
@@ -146,7 +145,7 @@
             color: white;
         }
 
-        /* HAMBURGER BUTTON */
+        /* HAMBURGER */
 
         .menu-toggle {
             display: none;
@@ -195,25 +194,26 @@
             display: none;
         }
 
-        /* MAIN CONTENT */
+        /* MAIN CONTENT - SCROLL FIX */
 
         .main-content {
-            flex: 1 1 auto;
+            flex: 1 0 auto;
             width: 100%;
             min-height: 0;
             display: flex;
             justify-content: center;
             padding: 15px 30px;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         .content-wrapper {
             width: 96%;
             max-width: 1250px;
-            height: 100%;
+            height: auto;
+            min-height: 100%;
             display: flex;
             flex-direction: column;
-            min-height: 0;
         }
 
         .page-header {
@@ -241,11 +241,11 @@
             margin: 6px auto 0;
         }
 
-        /* CALENDAR CARD */
+        /* WEEKLY CALENDAR CARD */
 
         .calendar-card {
-            flex: 1 1 auto;
-            min-height: 0;
+            flex: 0 0 440px;
+            min-height: 400px;
             min-width: 0;
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(12px);
@@ -279,8 +279,6 @@
             font-size: 10px;
             font-weight: bold;
         }
-
-        /* ONLY THE CALENDAR TABLE SCROLLS */
 
         .calendar-scroll {
             flex: 1 1 auto;
@@ -402,7 +400,286 @@
             background: rgba(255, 255, 255, 0.65);
         }
 
-        /* FOOTER - SAME AS HOME */
+        /* EVENT MANAGEMENT CARD */
+
+        .event-management-card {
+            width: 100%;
+            flex: 0 0 auto;
+            margin-top: 18px;
+            padding: 22px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(30, 64, 175, 0.12);
+        }
+
+        .event-section-header {
+            margin-bottom: 18px;
+        }
+
+        .event-section-header h2 {
+            color: #0f2f68;
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+
+        .event-section-header p {
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .event-message {
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 9px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .event-message.success {
+            background: #dcfce7;
+            border: 1px solid #86efac;
+            color: #166534;
+        }
+
+        .event-message.error {
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+        }
+
+        .event-message ul {
+            padding-left: 20px;
+        }
+
+        .event-form {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            min-width: 0;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: #315a82;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            min-height: 42px;
+            padding: 11px 12px;
+            border: 1px solid #cbdced;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #12345b;
+            font-size: 13px;
+            outline: none;
+            transition: border 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-group textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #168cf0;
+            box-shadow: 0 0 0 3px rgba(22, 140, 240, 0.12);
+        }
+
+        .field-error {
+            color: #dc2626;
+            font-size: 11px;
+        }
+
+        .event-submit-button {
+            min-height: 43px;
+            padding: 11px 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #0756b5, #168cf0);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 14px rgba(22, 140, 240, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .event-submit-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 7px 17px rgba(22, 140, 240, 0.28);
+        }
+
+        .events-list-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 25px 0 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dbeafe;
+        }
+
+        .events-list-heading h3 {
+            color: #0f2f68;
+            font-size: 16px;
+        }
+
+        .event-count {
+            background: #e5f0ff;
+            color: #0756b5;
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .empty-events {
+            padding: 25px 15px;
+            text-align: center;
+            background: #f4f8fd;
+            border: 1px dashed #b8cde5;
+            border-radius: 10px;
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .event-item {
+            padding: 16px;
+            margin-bottom: 12px;
+            background: #f8fbff;
+            border: 1px solid #dbeafe;
+            border-left: 4px solid #168cf0;
+            border-radius: 10px;
+        }
+
+        .event-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .event-item-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .event-item h4 {
+            color: #123d7a;
+            font-size: 15px;
+            margin-bottom: 7px;
+            overflow-wrap: anywhere;
+        }
+
+        .event-type-badge {
+            display: inline-block;
+            padding: 5px 9px;
+            background: #e5f0ff;
+            color: #0756b5;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .event-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 18px;
+            margin-top: 8px;
+            color: #52759c;
+            font-size: 12px;
+        }
+
+        .event-description {
+            margin-top: 10px;
+            color: #45698f;
+            font-size: 12px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .event-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .edit-toggle-button,
+        .delete-event-button {
+            min-height: 34px;
+            padding: 8px 13px;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .edit-toggle-button {
+            background: #e5f0ff;
+            color: #0756b5;
+            border: 1px solid #bfdbfe;
+        }
+
+        .edit-toggle-button:hover {
+            background: #dbeafe;
+        }
+
+        .delete-event-button {
+            background: #fff1f2;
+            color: #be123c;
+            border: 1px solid #fecdd3;
+        }
+
+        .delete-event-button:hover {
+            background: #ffe4e6;
+        }
+
+        .edit-event-panel {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dbeafe;
+        }
+
+        .edit-event-panel.open {
+            display: block;
+        }
+
+        .edit-event-form {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .edit-event-form .form-group textarea {
+            min-height: 75px;
+        }
+
+        .edit-event-form .event-submit-button {
+            align-self: end;
+        }
+
+        /* FOOTER */
 
         footer {
             min-height: 45px;
@@ -419,55 +696,6 @@
             font-size: 11px;
             line-height: 1.5;
             box-shadow: 0 -5px 18px rgba(30, 64, 175, 0.12);
-        }
-
-        /* SHORT VIEWPORTS */
-
-        @media (max-height: 750px) {
-            .main-content {
-                padding-top: 8px;
-                padding-bottom: 8px;
-            }
-
-            .page-header {
-                margin-bottom: 6px;
-            }
-
-            .page-header h1 {
-                font-size: 22px;
-            }
-
-            .page-header p {
-                font-size: 10px;
-            }
-
-            .calendar-card {
-                padding: 11px;
-            }
-
-            .calendar-header {
-                margin-bottom: 6px;
-            }
-
-            .calendar-grid {
-                grid-template-rows: 32px repeat(5, minmax(0, 1fr));
-            }
-
-            .class-event {
-                padding: 5px;
-            }
-
-            .subject-code {
-                font-size: 8px;
-            }
-
-            .subject-name {
-                font-size: 9px;
-            }
-
-            .class-info {
-                font-size: 7px;
-            }
         }
 
         /* TABLET */
@@ -511,18 +739,18 @@
             }
         }
 
-        /* MOBILE NAVBAR - SAME RIGHT-SIDE DRAWER AS HOME */
+        /* MOBILE */
 
         @media (max-width: 760px) {
             html,
             body {
-                height: 100%;
+                min-height: 100%;
+                height: auto;
             }
 
             body {
-                height: 100vh;
-                height: 100dvh;
-                min-height: 0;
+                min-height: 100vh;
+                min-height: 100dvh;
             }
 
             .navbar {
@@ -623,12 +851,13 @@
 
             .main-content {
                 padding: 10px;
-                overflow: hidden;
+                overflow-x: hidden;
+                overflow-y: visible;
             }
 
             .content-wrapper {
                 width: 100%;
-                height: 100%;
+                height: auto;
                 min-height: 0;
             }
 
@@ -646,6 +875,8 @@
             }
 
             .calendar-card {
+                flex-basis: 420px;
+                min-height: 380px;
                 padding: 10px;
                 overflow: hidden;
             }
@@ -671,6 +902,29 @@
                 min-height: 350px;
                 grid-template-columns: 75px repeat(6, minmax(0, 1fr));
                 grid-template-rows: 35px repeat(5, minmax(0, 1fr));
+            }
+
+            .event-management-card {
+                margin-top: 12px;
+                padding: 16px;
+            }
+
+            .event-section-header h2 {
+                font-size: 18px;
+            }
+
+            .event-form,
+            .edit-event-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: auto;
+            }
+
+            .event-item-top {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
             footer {
@@ -722,6 +976,10 @@
 
             .calendar-card {
                 padding: 8px;
+            }
+
+            .event-management-card {
+                padding: 12px;
             }
 
             footer {
@@ -797,6 +1055,7 @@
                 <div class="blue-line"></div>
             </div>
 
+            <!-- WEEKLY CLASS SCHEDULE -->
             <div class="calendar-card">
                 <div class="calendar-header">
                     <h2>Weekly Class Schedule</h2>
@@ -955,6 +1214,310 @@
                     </div>
                 </div>
             </div>
+
+            <!-- EVENT MANAGEMENT -->
+            <section class="event-management-card">
+
+                <div class="event-section-header">
+                    <h2>Event Management</h2>
+                    <p>
+                        Add and manage your personal academic events,
+                        examinations, deadlines, meetings, and activities.
+                    </p>
+                </div>
+
+                <!-- SUCCESS MESSAGE -->
+                @if (session('success'))
+                    <div class="event-message success" role="status">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                <!-- VALIDATION ERRORS -->
+                @if ($errors->any())
+                    <div class="event-message error" role="alert">
+                        <strong>Please check the following:</strong>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <!-- ADD EVENT FORM -->
+                <form
+                    action="{{ route('calendar.store') }}"
+                    method="POST"
+                    class="event-form"
+                >
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="title">Event Title *</label>
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            value="{{ old('title') }}"
+                            placeholder="Example: SIA Long Quiz"
+                            maxlength="255"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="event_type">Event Type *</label>
+                        <select id="event_type" name="event_type" required>
+                            <option value="">Select event type</option>
+                            <option value="Exam" {{ old('event_type') == 'Exam' ? 'selected' : '' }}>
+                                Exam
+                            </option>
+                            <option value="Deadline" {{ old('event_type') == 'Deadline' ? 'selected' : '' }}>
+                                Deadline
+                            </option>
+                            <option value="Meeting" {{ old('event_type') == 'Meeting' ? 'selected' : '' }}>
+                                Meeting
+                            </option>
+                            <option value="Activity" {{ old('event_type') == 'Activity' ? 'selected' : '' }}>
+                                Activity
+                            </option>
+                            <option value="Other" {{ old('event_type') == 'Other' ? 'selected' : '' }}>
+                                Other
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="event_date">Event Date *</label>
+                        <input
+                            type="date"
+                            id="event_date"
+                            name="event_date"
+                            value="{{ old('event_date') }}"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="event_time">Event Time</label>
+                        <input
+                            type="time"
+                            id="event_time"
+                            name="event_time"
+                            value="{{ old('event_time') }}"
+                        >
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="description">Description</label>
+                        <textarea
+                            id="description"
+                            name="description"
+                            maxlength="2000"
+                            placeholder="Add additional information about this event..."
+                        >{{ old('description') }}</textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <button type="submit" class="event-submit-button">
+                            + Add Event
+                        </button>
+                    </div>
+                </form>
+
+                <!-- SAVED EVENTS -->
+                <div class="events-list-heading">
+                    <h3>Saved Events</h3>
+                    <span class="event-count">
+                        {{ $events->count() }} {{ $events->count() === 1 ? 'Event' : 'Events' }}
+                    </span>
+                </div>
+
+                @forelse ($events as $event)
+
+                    <article class="event-item">
+
+                        <div class="event-item-top">
+                            <div>
+                                <h4>{{ $event->title }}</h4>
+                                <span class="event-type-badge">
+                                    {{ $event->event_type }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="event-details">
+                            <span>
+                                <strong>Date:</strong>
+                                {{ $event->event_date->format('F d, Y') }}
+                            </span>
+
+                            <span>
+                                <strong>Time:</strong>
+                                {{ $event->event_time
+                                    ? \Carbon\Carbon::parse($event->event_time)->format('h:i A')
+                                    : 'Not specified' }}
+                            </span>
+                        </div>
+
+                        @if ($event->description)
+                            <div class="event-description">
+                                {{ $event->description }}
+                            </div>
+                        @endif
+
+                        <div class="event-actions">
+
+                            <!-- EDIT BUTTON -->
+                            <button
+                                type="button"
+                                class="edit-toggle-button"
+                                onclick="toggleEditForm({{ $event->id }})"
+                            >
+                                Edit Event
+                            </button>
+
+                            <!-- DELETE FORM -->
+                            <form
+                                action="{{ route('calendar.destroy', $event->id) }}"
+                                method="POST"
+                                onsubmit="return confirm('Are you sure you want to delete this event?');"
+                            >
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="delete-event-button">
+                                    Delete Event
+                                </button>
+                            </form>
+
+                        </div>
+
+                        <!-- EDIT EVENT FORM -->
+                        <div
+                            class="edit-event-panel"
+                            id="edit-panel-{{ $event->id }}"
+                        >
+                            <form
+                                action="{{ route('calendar.update', $event->id) }}"
+                                method="POST"
+                                class="edit-event-form"
+                            >
+                                @csrf
+                                @method('PUT')
+
+                                <div class="form-group">
+                                    <label for="edit-title-{{ $event->id }}">
+                                        Event Title *
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="edit-title-{{ $event->id }}"
+                                        name="title"
+                                        value="{{ $event->title }}"
+                                        maxlength="255"
+                                        required
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="edit-type-{{ $event->id }}">
+                                        Event Type *
+                                    </label>
+
+                                    <select
+                                        id="edit-type-{{ $event->id }}"
+                                        name="event_type"
+                                        required
+                                    >
+                                        <option value="Exam" {{ $event->event_type == 'Exam' ? 'selected' : '' }}>
+                                            Exam
+                                        </option>
+
+                                        <option value="Deadline" {{ $event->event_type == 'Deadline' ? 'selected' : '' }}>
+                                            Deadline
+                                        </option>
+
+                                        <option value="Meeting" {{ $event->event_type == 'Meeting' ? 'selected' : '' }}>
+                                            Meeting
+                                        </option>
+
+                                        <option value="Activity" {{ $event->event_type == 'Activity' ? 'selected' : '' }}>
+                                            Activity
+                                        </option>
+
+                                        <option value="Other" {{ $event->event_type == 'Other' ? 'selected' : '' }}>
+                                            Other
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="edit-date-{{ $event->id }}">
+                                        Event Date *
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="edit-date-{{ $event->id }}"
+                                        name="event_date"
+                                        value="{{ $event->event_date->format('Y-m-d') }}"
+                                        required
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="edit-time-{{ $event->id }}">
+                                        Event Time
+                                    </label>
+
+                                    <input
+                                        type="time"
+                                        id="edit-time-{{ $event->id }}"
+                                        name="event_time"
+                                        value="{{ $event->event_time
+                                            ? \Carbon\Carbon::parse($event->event_time)->format('H:i')
+                                            : '' }}"
+                                    >
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="edit-description-{{ $event->id }}">
+                                        Description
+                                    </label>
+
+                                    <textarea
+                                        id="edit-description-{{ $event->id }}"
+                                        name="description"
+                                        maxlength="2000"
+                                        placeholder="Add event details..."
+                                    >{{ $event->description }}</textarea>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <button type="submit" class="event-submit-button">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </article>
+
+                @empty
+
+                    <div class="empty-events">
+                        <strong>No events added yet.</strong>
+                        <br>
+                        Your saved events will appear here after you add one.
+                    </div>
+
+                @endforelse
+
+            </section>
+
         </div>
     </main>
 
@@ -963,7 +1526,7 @@
         SIA &nbsp; | &nbsp; System Integration and Architecture
     </footer>
 
-    <!-- NAVBAR INTERACTIONS -->
+    <!-- NAVBAR AND EVENT INTERACTIONS -->
     <script>
         const menuToggle = document.getElementById("menuToggle");
         const navLinks = document.getElementById("navLinks");
@@ -974,6 +1537,7 @@
             menuToggle.classList.toggle("open", isOpen);
 
             menuToggle.setAttribute("aria-expanded", String(isOpen));
+
             menuToggle.setAttribute(
                 "aria-label",
                 isOpen ? "Close navigation menu" : "Open navigation menu"
@@ -1006,6 +1570,17 @@
                 setMenuOpen(false);
             }
         });
+
+        // SHOW / HIDE EDIT EVENT FORM
+        function toggleEditForm(eventId) {
+            const panel = document.getElementById("edit-panel-" + eventId);
+
+            if (!panel) {
+                return;
+            }
+
+            panel.classList.toggle("open");
+        }
     </script>
 
 </body>

@@ -598,6 +598,17 @@
                         </svg>
                     </button>
                 </div>
+                <label for="invite_code">Instructor Invitation Code</label>
+                <input
+                type="password"
+                id="invite_code"
+                name="invite_code"
+                placeholder="Enter your invitation code"
+                autocomplete="off"
+            >
+                @error('invite_code')
+                    <div class="error">{{ $message }}</div>
+                @enderror
 
                 <button type="submit">CREATE ACCOUNT</button>
             </form>

@@ -711,7 +711,7 @@
                         <p><strong>Classroom:</strong> SIA 101 Online Classroom</p>
                         <p><strong>Schedule:</strong> Monday, 8:00 AM – 10:00 AM</p>
                     </div>
-                    <a href="#" class="classroom-button">Enter Classroom</a>
+                    <a href="{{ route('sia.classroom', ['block' => '3-A']) }}" class="classroom-button">Enter Classroom</a>
                 </div>
 
                 <div class="classroom-card">
@@ -722,7 +722,7 @@
                         <p><strong>Classroom:</strong> SIA 101 Online Classroom</p>
                         <p><strong>Schedule:</strong> Tuesday, 10:00 AM – 12:00 PM</p>
                     </div>
-                    <a href="#" class="classroom-button">Enter Classroom</a>
+                    <a href="{{ route('sia.classroom', ['block' => '3-B']) }}" class="classroom-button">Enter Classroom</a>
                 </div>
 
                 <div class="classroom-card">
@@ -733,7 +733,7 @@
                         <p><strong>Classroom:</strong> SIA 101 Online Classroom</p>
                         <p><strong>Schedule:</strong> Wednesday, 1:00 PM – 3:00 PM</p>
                     </div>
-                    <a href="#" class="classroom-button">Enter Classroom</a>
+                    <a href="{{ route('sia.classroom', ['block' => '3-C']) }}" class="classroom-button">Enter Classroom</a>
                 </div>
 
                 <div class="classroom-card">
@@ -744,7 +744,7 @@
                         <p><strong>Classroom:</strong> SIA 101 Online Classroom</p>
                         <p><strong>Schedule:</strong> Thursday, 8:00 AM – 10:00 AM</p>
                     </div>
-                    <a href="#" class="classroom-button">Enter Classroom</a>
+                    <a href="{{ route('sia.classroom', ['block' => '3-D']) }}" class="classroom-button">Enter Classroom</a>
                 </div>
 
                 <div class="classroom-card">
@@ -755,7 +755,7 @@
                         <p><strong>Classroom:</strong> SIA 101 Online Classroom</p>
                         <p><strong>Schedule:</strong> Friday, 8:00 AM – 10:00 AM</p>
                     </div>
-                    <a href="#" class="classroom-button">Enter Classroom</a>
+                    <a href="{{ route('sia.classroom', ['block' => '3-E']) }}" class="classroom-button">Enter Classroom</a>
                 </div>
 
                 <div class="classroom-card">
@@ -766,7 +766,7 @@
                         <p><strong>Classroom:</strong> SIA 101 Online Classroom</p>
                         <p><strong>Schedule:</strong> Saturday, 3:00 PM – 5:00 PM</p>
                     </div>
-                    <a href="#" class="classroom-button">Enter Classroom</a>
+                    <a href="{{ route('sia.classroom', ['block' => '3-L']) }}" class="classroom-button">Enter Classroom</a>
                 </div>
 
             </div>
