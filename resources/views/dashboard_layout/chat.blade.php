@@ -931,7 +931,7 @@ footer {
         </div>
 
         <div class="conversation-subject">
-            SIA 101 â€” System Integration and Architecture
+            SIA 101 | System Integration and Architecture
         </div>
     </div>
 
